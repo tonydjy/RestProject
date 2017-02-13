@@ -1,6 +1,7 @@
 package com.tv.rest;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;  
 import javax.ws.rs.core.MediaType;
@@ -96,6 +97,57 @@ public class ProductInfo {
 			JSONArray productList = dataJson.getJSONArray("ProductList");
 			resp.put("ProductList", productList);
 			br.close();
+
+		}
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}// 读取原始json文件  
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+     
+
+		return resp;
+	}
+	
+	@POST
+	@Path("/addProduct")
+    @Consumes(MediaType.APPLICATION_JSON)  
+    @Produces(MediaType.APPLICATION_JSON)  
+	public JSONObject addProduct(String product){
+		JSONObject resp = new JSONObject();
+		User user = new User();
+		user.setAge(10);
+		String separator = File.separator;
+		String fileName = "ProductList.txt";
+		String directory = ".." + separator + ".." + separator;
+        File file = new File(directory,fileName);
+        BufferedReader br;
+        BufferedWriter bw; 
+        String str =file.getAbsolutePath();
+		try {
+			br = new BufferedReader(new FileReader(  
+			        file.getAbsolutePath()));   
+			String full_content = "", temp_str = "";  
+			while ((temp_str = br.readLine()) != null){
+				full_content = full_content + temp_str;
+			}
+			br.close();
+			JSONObject dataJson = new JSONObject(full_content);
+			JSONArray productList = dataJson.getJSONArray("ProductList");
+			productList.put(product);
+			bw = new BufferedWriter(new FileWriter(  
+			        file.getAbsolutePath())); 
+			bw.write(dataJson.toString());
+			
+			resp.put("ProductList", productList);
+			bw.close();
+			
 
 		}
 		catch (FileNotFoundException e) {
