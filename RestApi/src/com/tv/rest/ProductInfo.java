@@ -7,10 +7,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.tv.model.User;
+import com.tv.service.UserService;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,6 +24,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;  
@@ -32,8 +38,17 @@ public class ProductInfo {
     @Produces(MediaType.APPLICATION_JSON)  
 	public JSONObject hello(){
 		JSONObject resp = new JSONObject();
-		User user = new User();
-		user.setAge(10);
+
+	     ApplicationContext appContext = new ClassPathXmlApplicationContext("config/BeanLocations.xml");
+
+	     UserService userService = (UserService) appContext.getBean("userServiceBean");
+	     /** insert **/
+	     Long Id = 20l;
+	     User user = new User();
+	     user.setName("tony");
+	     user.setPassword("12356");
+	     userService.save(user);        
+	    
 		try {
 			resp.put("name", "tv from server");
 		} catch (JSONException e) {
@@ -42,6 +57,7 @@ public class ProductInfo {
 		}  
 		return resp;
 	}
+
 	
 	@GET
 	@Path("/createListFile")
@@ -49,8 +65,6 @@ public class ProductInfo {
     @Produces(MediaType.APPLICATION_JSON)  
 	public JSONObject createProductList(){
 		JSONObject resp = new JSONObject();
-		User user = new User();
-		user.setAge(10);
 		String separator = File.separator;
 		String fileName = "ProductList.txt";
 		String directory = ".." + separator + ".." + separator;
@@ -80,8 +94,6 @@ public class ProductInfo {
     @Produces(MediaType.APPLICATION_JSON)  
 	public JSONObject getProductList(){
 		JSONObject resp = new JSONObject();
-		User user = new User();
-		user.setAge(10);
 		String separator = File.separator;
 		String fileName = "ProductList.txt";
 		String directory = ".." + separator + ".." + separator;
@@ -124,8 +136,6 @@ public class ProductInfo {
     @Produces(MediaType.APPLICATION_JSON)  
 	public JSONObject addProduct(String product){
 		JSONObject resp = new JSONObject();
-		User user = new User();
-		user.setAge(10);
 		String separator = File.separator;
 		String fileName = "ProductList.txt";
 		String directory = ".." + separator + ".." + separator;
@@ -175,8 +185,6 @@ public class ProductInfo {
     @Produces(MediaType.APPLICATION_JSON)  
 	public JSONObject deleteProduct(@QueryParam("product") String product){
 		JSONObject resp = new JSONObject();
-		User user = new User();
-		user.setAge(10);
 		String separator = File.separator;
 		String fileName = "ProductList.txt";
 		String directory = ".." + separator + ".." + separator;

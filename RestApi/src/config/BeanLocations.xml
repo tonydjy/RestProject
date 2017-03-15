@@ -1,0 +1,17 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!-- 引入分开写的数据库的spring配置文件，你也可以写在这一个文件中 -->
+    <import resource="../database/Hibernate.xml"/>
+    <!--<import resource="classpath:/database/Hibernate.xml"/> -->
+
+   <bean id="userServiceBean" class="com.tv.service.impl.UserServiceImpl" >
+        <property name="UserDao" ref="userDaoBean" />
+   </bean>
+
+   <bean id="userDaoBean" class="com.tv.dao.impl.UserDaoImpl" >
+        <property name="sessionFactory" ref="sessionFactory"></property>
+   </bean>
+</beans>
