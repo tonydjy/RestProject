@@ -41,10 +41,17 @@ public class UserInfo {
 	     ApplicationContext appContext = new ClassPathXmlApplicationContext("config/BeanLocations.xml");
 
 	     UserService userService = (UserService) appContext.getBean("userServiceBean");
-	     /** insert **/
-	     Long Id = 20l;
+	     if(User.getString("name") == null || User.getString("password") == null){
+	    	 resp.put("error", "failed data format, please check !");
+	    	 return resp;
+	     }
 	     User user = new User();
 	     user.setName(User.getString("name"));
+	     if(userService.checkUserExist(User.getString("name"))){
+	    	 resp.put("error", "user already exist");
+	    	 return resp;
+	     }	     
+	     /** insert **/
 	     user.setPassword(User.getString("password"));
 	     userService.save(user);        
 	    
@@ -69,7 +76,7 @@ public class UserInfo {
 	     UserService userService = (UserService) appContext.getBean("userServiceBean");     
 	     boolean auth = false;
 		try {
-			auth = userService.checkUser(User.getString("name"), User.getString("password"));
+			auth = userService.authUser(User.getString("name"), User.getString("password"));
 			if(auth){
 				resp.put("success", "auth user successfully");
 			}else

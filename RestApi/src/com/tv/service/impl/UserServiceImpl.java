@@ -27,9 +27,13 @@ public class UserServiceImpl implements UserService {
     public void delete(User user){
     	userDao.delete(user);
     }
-    //²é
-    public boolean checkUser(String name, String password){
-    	return userDao.checkUser(name, password);
+
+    public boolean checkUserExist(String name){
+    	return userDao.checkUserExist(name);
+    }
+    
+    public boolean authUser(String name, String password){
+    	return userDao.authUser(name, password);
     }
     
 }

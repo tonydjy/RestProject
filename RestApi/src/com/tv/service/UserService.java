@@ -7,5 +7,6 @@ public interface UserService {
     void save(User user);
     void update(User user);
     void delete(User user);
-    boolean checkUser(String name, String password);
+    boolean authUser(String name, String password);
+    boolean checkUserExist(String name);
 }
