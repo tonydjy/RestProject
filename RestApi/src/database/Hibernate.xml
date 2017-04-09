@@ -44,6 +44,7 @@ http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
         <property name="mappingResources">
             <list>
                 <value>/hibernate/User.hbm.xml</value>
+                <value>/hibernate/Role.hbm.xml</value>
             </list>
         </property>
     </bean>

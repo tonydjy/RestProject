@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.tv.model.Role" table="role">
+        <id name="roleid" type="java.lang.Long">
+            <column name="roleid" />
+            <generator class="identity" />
+        </id>
+        <property name="roleName" type="string">
+            <column name="Name" length="20" not-null="true" unique="true" />
+        </property>
+ 		<set name="users" table="user_role" cascade="all" lazy="false">  
+            <key column="roleid" not-null="true" />  
+            <many-to-many class="com.tv.model.User" column="userid"/>  
+        </set>  
+    </class>
+</hibernate-mapping>

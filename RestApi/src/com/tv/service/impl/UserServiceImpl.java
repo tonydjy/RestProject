@@ -35,5 +35,11 @@ public class UserServiceImpl implements UserService {
     public boolean authUser(String name, String password){
     	return userDao.authUser(name, password);
     }
+
+	public User getUser(String name) {
+		// TODO Auto-generated method stub
+		return userDao.getUser(name);
+	}
+
     
 }

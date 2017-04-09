@@ -1,16 +1,17 @@
 package com.tv.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 public class User implements Serializable {
-	 	private Long id;//id
+	 	private Long userid;//id
 	    private String name;//ÐÕÃû
 	    private String password;
+	    private Set<Role> roles;
 
 
-
-		public void setId(Long id) {
-			this.id = id;	
+		public void setUserid(Long userid) {
+			this.userid = userid;	
 		}
 
 		public void setName(String name) {
@@ -18,8 +19,8 @@ public class User implements Serializable {
 			this.name = name;
 		}   
 		
-		public Long getId(){
-			return this.id;
+		public Long getUserid(){
+			return this.userid;
 		}
 		
 		public String getName(){
@@ -32,5 +33,13 @@ public class User implements Serializable {
 		
 		public String getPassword(){
 			return this.password;
+		}
+		
+		public void setRoles(Set<Role> roles){
+			this.roles = roles;
+		}
+		
+		public Set<Role> getRoles(){
+			return this.roles;
 		}
 }

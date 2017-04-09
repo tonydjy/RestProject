@@ -10,8 +10,16 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
    <bean id="userServiceBean" class="com.tv.service.impl.UserServiceImpl" >
         <property name="UserDao" ref="userDaoBean" />
    </bean>
+   <bean id="roleServiceBean" class="com.tv.service.impl.RoleServiceImpl" >
+        <property name="RoleDao" ref="roleDaoBean" />
+   </bean>
+
 
    <bean id="userDaoBean" class="com.tv.dao.impl.UserDaoImpl" >
         <property name="sessionFactory" ref="sessionFactory"></property>
    </bean>
+   <bean id="roleDaoBean" class="com.tv.dao.impl.RoleDaoImpl" >
+        <property name="sessionFactory" ref="sessionFactory"></property>
+   </bean>
+
 </beans>
